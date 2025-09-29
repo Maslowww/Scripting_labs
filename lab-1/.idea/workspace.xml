@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="397d2db6-bb07-4241-b678-9bb06ff7adaa" name="Changes" comment="" />
+    <list default="true" id="397d2db6-bb07-4241-b678-9bb06ff7adaa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../lab-2/auth.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/copy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/example_1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/example_2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/example_3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/example_4.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/example_5.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/example_6.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/lab2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/lab2_step2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/lab2_step3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/lab2_step4.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/sample.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab-2/unique_ips.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Maslowww/Scripting_lab-01.git&quot;,
-    &quot;accountId&quot;: &quot;e147ac6a-8f69-4e62-abdc-6c1f4ac460a4&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Maslowww/Scripting_labs.git",
+    "accountId": "e147ac6a-8f69-4e62-abdc-6c1f4ac460a4"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -54,6 +69,7 @@
       <updated>1758297356388</updated>
       <workItem from="1758297358483" duration="66000" />
       <workItem from="1758298854238" duration="3000" />
+      <workItem from="1758551221259" duration="66000" />
     </task>
     <servers />
   </component>
