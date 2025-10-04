@@ -1,48 +1,71 @@
-# lab2.3_starter.py
+import re
 import json
-from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
+import matplotlib.pyplot as plt  # <-- for plotting, must be installed
 
-LOGFILE = "sample_auth_small.log"
+ip_attempts = {}
+log_file = "sample_auth_small.log"
+year = "2025"
+date_format = "%Y %b %d %H:%M:%S"
+pattern = r"(\w{3}\s+\d{1,2}\s\d{2}:\d{2}:\d{2}).*Failed password.*from\s+(\d+\.\d+\.\d+\.\d+)"
 
-def parse_auth_line(line):
-    """
-    Parse an auth log line and return (timestamp, ip, event_type)
-    Example auth line:
-    Mar 10 13:58:01 host1 sshd[1023]: Failed password for invalid user admin from 203.0.113.45 port 52344 ssh2
-    We will:
-     - parse timestamp (assume year 2025)
-     - extract IP (token after 'from')
-     - event_type: 'failed' if 'Failed password', 'accepted' if 'Accepted password', else 'other'
-    """
-    parts = line.split()
-    # timestamp: first 3 tokens 'Mar 10 13:58:01'
-    ts_str = " ".join(parts[0:3])
-    try:
-        ts = datetime.strptime(f"2025 {ts_str}", "%Y %b %d %H:%M:%S")
-    except Exception:
-        ts = None
-    ip = None
-    event_type = "other"
-    if "Failed password" in line:
-        event_type = "failed"
-    elif "Accepted password" in line or "Accepted publickey" in line:
-        event_type = "accepted"
-    if " from " in line:
-        try:
-            idx = parts.index("from")
-            ip = parts[idx+1]
-        except (ValueError, IndexError):
-            ip = None
-    return ts, ip, event_type
+with open(log_file, "r") as f:
+    for line in f:
+        match = re.search(pattern, line)
+        if match:
+            ts_str = match.group(1)
+            ip = match.group(2)
+            full_date_str = f"{year} {ts_str}"
+            try:
+                dt = datetime.strptime(full_date_str, date_format)
+                ip_attempts.setdefault(ip, []).append(dt)
+            except ValueError:
+                print(f"Error parsing date: {full_date_str}, line: {line.strip()}")
 
-if __name__ == "__main__":
-    per_ip_timestamps = defaultdict(list)
-    with open(LOGFILE) as f:
-        for line in f:
-            ts, ip, event = parse_auth_line(line)
-            if ts and ip and event == "failed":   # checks that ts and ip are not null, and that event=="failed"
-                per_ip_timestamps[ip].append(ts)
-    # quick print
-    for ip, times in per_ip_timestamps.items():
-        print(ip, len(times))
+for ip in ip_attempts:
+    ip_attempts[ip].sort()
+
+incidents = []
+window = timedelta(minutes=10)
+for ip, times in ip_attempts.items():
+    n = len(times)
+    i = 0
+    while i < n:
+        j = i
+        while j + 1 < n and (times[j + 1] - times[i]) <= window:
+            j += 1
+        count = j - i + 1
+        if count >= 5:
+            incidents.append({
+                "ip": ip,
+                "count": count,
+                "first": times[i].isoformat(),
+                "last": times[j].isoformat()
+            })
+            i = j + 1
+        else:
+            i += 1
+
+print(f"Detected {len(incidents)} brute-force incidents")
+for incident in incidents[:5]:
+    print(incident)
+
+with open("bruteforce_incidents.txt", "w") as f:
+    json.dump(incidents, f, indent=2)
+
+# -- Diagram section: Top IPs by failed attempts --
+ip_counts = {ip: len(times) for ip, times in ip_attempts.items()}
+top_ips = sorted(ip_counts.items(), key=lambda x: x[1], reverse=True)[:10]
+ips = [ip for ip, _ in top_ips]
+counts = [count for _, count in top_ips]
+
+plt.figure(figsize=(10, 6))
+plt.bar(ips, counts, color='red')
+plt.title("Top Attacker IPs")
+plt.xlabel("IP Address")
+plt.ylabel("Failed Attempts")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("top_attackers.png")
+plt.show()
+
