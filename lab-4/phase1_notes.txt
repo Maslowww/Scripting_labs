@@ -1,0 +1,23 @@
+Step 1
+q1) I've got HTTP/1.1 200 OK
+q2) Apache/2.4.7 (Ubuntu)
+Step 2
+q1) Go ahead and ScanMe!
+q2)  1)  <form class="nst-search" id="nst-head-search" action="/search/">
+    <input class="nst-search-q" name="q" type="search" placeholder="Site Search">
+    <button class="nst-search-button" title="Search">
+     <img style="width:100%;aspect-ratio:1/1;" alt="" aria-hidden="true"
+      src="/shared/images/nst-icons.svg#search">
+     </button>
+   </form>
+   2) 
+   <form class="nst-search" id="nst-foot-search" action="/search/">
+    <input class="nst-search-q" name="q" type="search" placeholder="Site Search">
+    <button class="nst-search-button" title="Search">
+     <img style="width:100%;aspect-ratio:1/1;" alt="" aria-hidden="true"
+      src="/shared/images/nst-icons.svg#search">
+     </button>
+   </form>
+Step 3
+q1)No
+q2) curl does not follow redirects by default while requests usually does

@@ -1,0 +1,2 @@
+#!/bin/bash
+grep '^s' /etc/passwd | cut -d: -f1 | sort | uniq
